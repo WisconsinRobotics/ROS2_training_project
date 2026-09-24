@@ -2,8 +2,8 @@
 
 Welcome to your first hands-on ROS2 mini-project! Today you will create a custom ROS2 package from scratch, write a controller node in Python, and drive a simulated turtle to a target GPS coordinate.
 
-**Timeframe:** 1 Hour  
-**Tooling:** Devcontainer / ROS2 Humble / Python (`rclpy`)  
+**Timeframe:** 1 Hour (its fine if you go over) 
+**Tooling:** Using the Wisconsin Robotics Dev container based workspace / ROS2 Humble / Python (`rclpy`)  
 **AI Usage:** Strongly encouraged! Ask strategic questions about ROS2 architecture, `rclpy` callbacks, and control logic.
 
 ---
