@@ -38,7 +38,7 @@ ros2 pkg create --build-type ament_python turtle_control --dependencies rclpy ge
 Inside `src/turtle_control/turtle_control/`, create a new Python file named `turtle_controller.py`:
 
 ### Step 3: Register the Executable in `setup.py`
-Open `src/turtle_control/setup.py` and register your node under `entry_points`. This is something you will be doing for all the executables (nodes - pubs, subs etc) you write:
+Open `src/turtle_control/setup.py` and register your node under `entry_points`. This makes your Python script executable via ros2 run:
 
 ```python
 entry_points={
@@ -63,7 +63,11 @@ entry_points={
 3. In your GPS callback, compute:
    - **Distance error:** `distance = sqrt((target_x - current_x)^2 + (target_y - current_y)^2)` - This is the Euclidean distance formula
    - **Desired heading:** `angle = atan2(target_y - current_y, target_x - current_x)` - This is the formula to compute angle between your current heading and the desired heading.
-4. Publish linear velocity (`linear.x`) and angular velocity (`angular.z`) commands to steer and move the turtle toward the target coordinate. You must publish to ???
+4. Publish linear velocity (`linear.x`) and angular velocity (`angular.z`) commands to steer and move the turtle toward the target coordinate. You must publish to ??? - figure out which topic to publish to by running:
+
+```bash
+ros2 topic list
+```
 
 ### Step 4 (Advanced Challenge)
 If you finish Steps 1–3 early:
@@ -72,7 +76,51 @@ If you finish Steps 1–3 early:
    - Set linear velocity to `0.0`.
    - Print `"Target Reached!"` to the logger.
    - Perform a 360-degree spin in place.
+3. Now write a launch file for both mock_gps and for turtle_control (see step 5)
 
+
+### Step 5 (Launch File Configuration)
+To launch your ROS 2 node along with any necessary configurations, create a dedicated launch file.
+1. Create a launch/ directory inside your package root if it doesn't already exist:
+```bash
+mkdir -p /workspace/ROS2_training_project/src/your_package_name/launch
+```
+2. Create a python file named your_file_name.py
+```python
+import os
+from launch import LaunchDescription
+from launch_ros.actions import Node
+
+def generate_launch_description():
+    return LaunchDescription([
+        Node(
+            package='your_package_name',
+            executable='',  # Name specified in setup.py console_scripts
+            name='target_navigator_node',
+            output='screen',
+            parameters=[
+                # Add parameters here if needed (e.g., target tolerance)
+                {'distance_threshold': 0.2}
+            ],
+            remappings=[
+                # Optional topic remappings
+                ('/target_gps', '/target_gps')
+            ]
+        )
+    ])
+```
+3. Update setup.py (the data_files list) to ensure the launch file installs properly
+```python
+# Include all launch files from the launch directory:
+(os.path.join('share', package_name, 'launch'), glob(os.path.join('launch', '*launch.[pxy][yma]'))),
+```
+4. Build the package and run the launch file
+```bash
+cd /workspace/
+colcon build --packages-select your_package_name
+source install/setup.bash
+ros2 launch your_package_name your_file_name.py
+```
 ---
 
 ## Build & Test Workflow
@@ -82,7 +130,7 @@ Every time you modify your code:
 1. **Build the workspace:**
    ```bash
    cd ~/ros2_ws
-   colcon build --packages-select turtle_control
+   colcon build --packages-select turtle_control --symlink-install
    ```
 
 2. **Source the workspace (In EVERY new terminal):**
