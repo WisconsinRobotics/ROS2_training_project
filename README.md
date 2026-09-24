@@ -30,7 +30,7 @@ You will create a **new package** called `turtle_control` alongside it.
 Navigate to your workspace `src` directory and generate a new Python package with pre-configured dependencies:
 
 ```bash
-cd ~/ros2_ws/src
+cd /workspace/ROS2_training_project/src
 ros2 pkg create --build-type ament_python turtle_control --dependencies rclpy geometry_msgs
 ```
 
