@@ -81,7 +81,7 @@ Every time you modify your code:
 
 1. **Build the workspace:**
    ```bash
-   cd ~/ros2_ws
+   cd /workspace/ROS2_training_project/
    colcon build --packages-select turtle_control
    ```
 
