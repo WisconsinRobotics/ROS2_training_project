@@ -8,6 +8,13 @@ Welcome to your first hands-on ROS2 mini-project! Today you will create a custom
 
 ---
 
+## Setup
+
+Clone this git repository in your WroverSoftware_Docker/workspace directory, and then launch the docker container for main.
+
+### Update package list and install turtlesim inside the main container.
+sudo apt update && sudo apt install -y ros-humble-turtlesim
+
 ## Workspace Layout
 
 Your workspace contains a pre-built package:
