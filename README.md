@@ -64,7 +64,7 @@ entry_points={
 3. In your GPS callback, compute:
    - **Distance error:** `distance = sqrt((target_x - current_x)^2 + (target_y - current_y)^2)` - This is the Euclidean distance formula
    - **Desired heading:** `angle = atan2(target_y - current_y, target_x - current_x)` - This is the formula to compute angle between your current heading and the desired heading.
-4. Publish linear velocity (`linear.x`) and angular velocity (`angular.z`) commands to steer and move the turtle toward the target coordinate. You must publish to ??? - figure out which topic to publish to by running:
+4. Publish linear velocity (`linear.x`) and angular velocity (`angular.z`) commands to steer and move the turtle toward the target coordinate. You must publish to ??? - figure out which topic to publish to by running: ros2 turtle_sim/turtle_sim/nodes
 
 ```bash
 ros2 topic list
